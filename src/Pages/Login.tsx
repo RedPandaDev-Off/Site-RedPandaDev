@@ -1,5 +1,88 @@
 
-import React, { useState } from 'react';
+
+import { gsap } from 'gsap';
+import { useEffect, useState } from 'react';
+
+// Composant HexBackground animé
+const HexBackground: React.FC = () => {
+  useEffect(() => {
+    gsap.to('#loginPulseHex', {
+      scale: 1.15,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+    });
+    gsap.to('#loginPulseCircle', {
+      scale: 1.12,
+      duration: 2.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 0.5,
+    });
+    gsap.to('#loginPulseRect', {
+      scale: 1.09,
+      duration: 2.2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 0.2,
+    });
+  }, []);
+  return (
+    <>
+      {/* Filtre SVG glow */}
+      <svg width="0" height="0">
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#ff6a00" floodOpacity="0.8" />
+          <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#ffb300" floodOpacity="0.5" />
+        </filter>
+      </svg>
+      {/* Formes proches du formulaire animées avec glow */}
+      <svg id="loginPulseHex" className="absolute w-10 h-10 glow-shape z-20" style={{ left: 'calc(50% - 320px)', top: '45%' }} viewBox="0 0 60 60" filter="url(#glow)">
+        <polygon points="30,5 55,20 55,40 30,55 5,40 5,20" stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.9} />
+      </svg>
+      <svg id="loginPulseCircle" className="absolute w-8 h-8 glow-shape z-20" style={{ left: 'calc(50% - 320px)', top: '60%' }} viewBox="0 0 60 60" filter="url(#glow)">
+        <circle cx={30} cy={30} r={25} stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.8} />
+      </svg>
+      <svg id="loginPulseRect" className="absolute w-10 h-10 glow-shape z-20" style={{ right: 'calc(50% - 320px)', top: '52%' }} viewBox="0 0 60 60" filter="url(#glow)">
+        <rect x={10} y={10} width={40} height={40} stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.85} />
+      </svg>
+      <svg className="absolute w-8 h-8 glow-shape z-20" style={{ right: 'calc(50% - 320px)', top: '68%' }} viewBox="0 0 60 60" filter="url(#glow)">
+        <polygon points="30,5 55,20 55,40 30,55 5,40 5,20" stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.7} />
+      </svg>
+      {/* Décor gauche enrichi */}
+      <svg className="absolute left-10 top-24 w-28 h-28 glow-shape-strong z-10" viewBox="0 0 200 200">
+        <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" stroke="#ff6a00" strokeWidth={4} fill="none" opacity={0.95} />
+        <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" stroke="#ff6a00" strokeWidth={2.5} fill="none" opacity={0.85} />
+      </svg>
+      <svg className="absolute left-20 top-80 w-14 h-14 glow-shape z-10" viewBox="0 0 100 100">
+        <rect x={20} y={20} width={60} height={60} stroke="#ff6a00" strokeWidth={2.5} fill="none" opacity={0.9} />
+      </svg>
+      <svg className="absolute left-16 bottom-10 w-20 h-20 glow-shape z-10" viewBox="0 0 100 100">
+        <circle cx={50} cy={50} r={40} stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.8} />
+      </svg>
+      <svg className="absolute left-6 top-[60%] w-10 h-10 glow-shape z-10" viewBox="0 0 60 60">
+        <polygon points="30,5 55,20 55,40 30,55 5,40 5,20" stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.7} />
+      </svg>
+      {/* Décor droite enrichi */}
+      <svg className="absolute right-12 top-56 w-28 h-28 glow-shape-medium z-10" viewBox="0 0 200 200">
+        <circle cx={100} cy={100} r={70} stroke="#ff6a00" strokeWidth={3} fill="none" opacity={0.95} />
+        <circle cx={100} cy={100} r={50} stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.8} />
+      </svg>
+      <svg className="absolute right-20 top-32 w-16 h-16 glow-shape z-10" viewBox="0 0 100 100">
+        <rect x={10} y={10} width={80} height={80} stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.85} />
+      </svg>
+      <svg className="absolute right-16 bottom-32 w-12 h-12 glow-shape z-10" viewBox="0 0 60 60">
+        <polygon points="30,5 55,20 55,40 30,55 5,40 5,20" stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.7} />
+      </svg>
+      <svg className="absolute right-8 top-[70%] w-10 h-10 glow-shape z-10" viewBox="0 0 60 60">
+        <circle cx={30} cy={30} r={25} stroke="#ff6a00" strokeWidth={2} fill="none" opacity={0.7} />
+      </svg>
+    </>
+  );
+}
 
 const Login: React.FC = () => {
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -9,11 +92,9 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   // Register states
-  // ...existing code...
   const [regEmail, setRegEmail] = useState('');
   const [regEmailConfirm, setRegEmailConfirm] = useState('');
   const [regPassword, setRegPassword] = useState('');
-  // ...existing code...
   const [regCgu, setRegCgu] = useState(false);
   const [regError, setRegError] = useState('');
   const [regLoading, setRegLoading] = useState(false);
@@ -57,7 +138,15 @@ const Login: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+    <section className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4 relative overflow-hidden">
+      <HexBackground />
+      {/* Bouton retour site principal */}
+      <a href="/" className="absolute top-6 left-6 flex items-center gap-2 text-orange-400 hover:text-orange-500 transition-colors group">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform duration-200">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+        <span className="font-semibold">Retour</span>
+      </a>
       <div className="bg-[#181818] border-2 border-orange-600 rounded-2xl shadow-lg p-8 w-full max-w-sm transition-all duration-500 relative overflow-hidden">
         <div className="flex flex-col items-center mb-6">
           <svg viewBox="0 0 200 200" width="64" height="64" className="mb-2">
