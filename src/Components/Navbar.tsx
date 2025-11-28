@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const navLinks = [
   { label: 'Accueil', href: '#heros' },
@@ -9,8 +10,10 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar() {
+const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
+  // Simule l'état de connexion admin (à remplacer par vrai auth)
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Smooth scroll
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -21,7 +24,6 @@ export default function Navbar() {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
 
   return (
     <nav className="w-full h-16 bg-[#0d0d0d] flex items-center justify-between px-6 md:px-12 border-b border-white/5 sticky top-0 z-50" role="navigation" aria-label="Menu principal">
@@ -69,9 +71,30 @@ export default function Navbar() {
           <rect y="18" width="24" height="2" rx="1" fill="#ff6a00" />
         </svg>
       </button>
-      <button className="bg-[#ff6a00] text-white px-4 py-2 rounded-full font-semibold shadow-[0_0_15px_rgba(255,106,0,0.4)] hover:scale-105 transition hidden md:block">
-        Devis gratuit
-      </button>
+      {/* Espace admin visible si connecté */}
+      {isAdmin && (
+        <a
+          href="/admin"
+          className="border-2 border-orange-600 text-orange-500 px-4 py-2 rounded-full font-semibold hover:bg-orange-600 hover:text-white transition-all hidden md:block ml-2"
+        >
+          Espace admin
+        </a>
+      )}
+      {!isAdmin ? (
+        <Link
+          to="/login"
+          className="border-2 border-orange-600 text-orange-500 px-4 py-2 rounded-full font-semibold hover:bg-orange-600 hover:text-white transition-all hidden md:block ml-2"
+        >
+          Connexion
+        </Link>
+      ) : (
+        <button
+          onClick={() => setIsAdmin(false)}
+          className="border-2 border-orange-600 text-orange-500 px-4 py-2 rounded-full font-semibold hover:bg-orange-600 hover:text-white transition-all hidden md:block ml-2"
+        >
+          Déconnexion
+        </button>
+      )}
       {/* Mobile menu */}
       {open && (
         <div className="fixed inset-0 bg-[#0a0a0a]/95 z-50 flex flex-col items-center justify-center gap-8 text-xl">
@@ -85,9 +108,32 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <button className="bg-[#ff6a00] text-white px-8 py-4 rounded-full font-semibold shadow-lg mt-8" onClick={() => setOpen(false)}>
-            Devis gratuit
-          </button>
+          {/* Espace admin visible si connecté (mobile) */}
+          {isAdmin && (
+            <a
+              href="/admin"
+              className="border-2 border-orange-600 text-orange-500 px-8 py-4 rounded-full font-semibold hover:bg-orange-600 hover:text-white transition-all mt-4"
+              onClick={() => setOpen(false)}
+            >
+              Espace admin
+            </a>
+          )}
+          {!isAdmin ? (
+            <Link
+              to="/login"
+              className="border-2 border-orange-600 text-orange-500 px-8 py-4 rounded-full font-semibold hover:bg-orange-600 hover:text-white transition-all mt-4"
+              onClick={() => setOpen(false)}
+            >
+              Connexion
+            </Link>
+          ) : (
+            <button
+              onClick={() => { setIsAdmin(false); setOpen(false); }}
+              className="border-2 border-orange-600 text-orange-500 px-8 py-4 rounded-full font-semibold hover:bg-orange-600 hover:text-white transition-all mt-4"
+            >
+              Déconnexion
+            </button>
+          )}
           <button className="absolute top-8 right-8 text-white text-3xl" aria-label="Fermer le menu" onClick={() => setOpen(false)}>
             &times;
           </button>
@@ -95,4 +141,6 @@ export default function Navbar() {
       )}
     </nav>
   );
-}
+};
+
+export default Navbar;

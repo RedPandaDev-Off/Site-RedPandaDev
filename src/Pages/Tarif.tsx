@@ -1,9 +1,10 @@
 import TarifCard from '../Components/TarifCard';
 
+
 export default function Tarif() {
   return (
-    <div className="flex flex-col items-center bg-[#0a0a0a] -mt-16 mb-12 pb-8">
-        <h1 className="text-4xl font-bold text-white mb-8">Nos Tarifs</h1>
+    <div id="tarif" className="flex flex-col items-center bg-[#0a0a0a] -mt-16 mb-12 pb-8">
+      <h1 className="text-4xl font-bold text-white mb-8">Nos Tarifs</h1>
       <div className="flex gap-x-8 justify-center">
         <TarifCard
           title="Pack Starter"

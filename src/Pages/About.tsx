@@ -24,7 +24,7 @@ export default function About() {
               <span className="text-orange-400 font-semibold">Salut !</span> Moi c’est Adrien, développeur web freelance passionné basé en France.
             </p>
             <p>
-              Je crée des sites modernes, rapides et esthétiques avec <span className="text-orange-400">React</span>, <span className="text-orange-400">TypeScript</span>, <span className="text-orange-400">Tailwind</span> et les dernières technos.
+              Je crée des sites modernes, rapides et esthétiques avec <span className="text-orange-400">React</span>, <span className="text-orange-400">Javascript</span>, <span className="text-orange-400">Tailwind</span> et les dernières technos.
             </p>
             <p>
               <span className="text-orange-400 font-semibold">Mon but ?</span> Transformer vos idées en réalité numérique qui cartonne.
